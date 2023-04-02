@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
+import type { ColorRepresentation } from 'three'
 
 export interface AppState {
   intro: boolean
-  color: string
+  color: ColorRepresentation | [r: number, g: number, b: number]
   isLogoTexture: boolean
   isFullTexture: boolean
   logoDecal: string
