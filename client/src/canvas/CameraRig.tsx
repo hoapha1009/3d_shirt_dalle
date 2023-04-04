@@ -10,7 +10,6 @@ type Props = {
 export default function CameraRig({ children }: Props) {
   const group = useRef<any>(null)
   const appState = useAppSelector((state) => state.app)
-  console.log('🚀 ~ file: CameraRig.tsx:13 ~ CameraRig ~ appState:', appState)
 
   useFrame((state, delta) => {
     const isBreakpoint = window.innerWidth <= 1260
