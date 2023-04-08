@@ -1,4 +1,5 @@
 import CustomButton from './CustomButton'
+import Spinner from './Spinner'
 
 type Props = {
   prompt: string
@@ -19,7 +20,10 @@ export default function AIPicker({ prompt, setPrompt, generatingImg, handleSubmi
       />
       <div className='flex flex-wrap gap-3'>
         {generatingImg ? (
-          <CustomButton type='ouline' title='Asking AI...' customStyles='text-xs' />
+          <div className='flex flex-wrap gap-2'>
+            <Spinner />
+            <CustomButton type='ouline' title='Asking AI...' customStyles='text-xs' />
+          </div>
         ) : (
           <>
             <CustomButton

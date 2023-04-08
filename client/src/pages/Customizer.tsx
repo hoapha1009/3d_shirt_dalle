@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { download } from '../assets'
 import { AIPicker, ColorPicker, CustomButton, FilePicker, Tab } from '../components'
@@ -7,6 +7,7 @@ import { setFullDecal, setFullTexture, setIntro, setLogoDecal, setLogoTexture } 
 import { DecalTypes, EditorTabs, FilterTabs } from '../configs/constants'
 import { downloadCanvasToImage, reader } from '../configs/helpers'
 import { fadeAnimation, slideAnimation } from '../configs/motion'
+import config from '../configs/config'
 
 type Props = {}
 
@@ -22,6 +23,10 @@ export default function Customizer({}: Props) {
     stylishShirt: false
   })
 
+  const previewImage = useMemo(() => {
+    return file ? URL.createObjectURL(file) : ''
+  }, [file])
+
   const handleClick = () => {
     const action = setIntro(true)
     dispatch(action)
@@ -33,7 +38,7 @@ export default function Customizer({}: Props) {
     try {
       setGeneratingImg(true)
 
-      const response = await fetch('http://localhost:8080/api/v1/dalle', {
+      const response = await fetch(config.development.backendUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -61,7 +66,7 @@ export default function Customizer({}: Props) {
       case 'colorpicker':
         return <ColorPicker />
       case 'filepicker':
-        return <FilePicker file={file} setFile={setFile} readFile={readFile} />
+        return <FilePicker file={file} setFile={setFile} readFile={readFile} previewImage={previewImage} />
       case 'aipicker':
         return (
           <AIPicker prompt={prompt} setPrompt={setPrompt} generatingImg={generatingImg} handleSubmit={handleSubmit} />

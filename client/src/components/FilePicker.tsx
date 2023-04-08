@@ -4,9 +4,10 @@ type Props = {
   file: File | null
   setFile: (file: File) => void
   readFile: (type: 'logo' | 'full') => void
+  previewImage: string
 }
 
-export default function FilePicker({ file, setFile, readFile }: Props) {
+export default function FilePicker({ file, setFile, readFile, previewImage }: Props) {
   return (
     <div className='filepicker-container'>
       <div className='flex flex-1 flex-col'>
@@ -22,7 +23,14 @@ export default function FilePicker({ file, setFile, readFile }: Props) {
           Upload File
         </label>
 
-        <p className='mt-2 truncate text-xs text-gray-500'>{!file ? 'No file selected' : file.name}</p>
+        <div className='mt-2'>
+          {!!previewImage && (
+            <div className='my-2.5 h-8'>
+              <img src={previewImage} alt='preview' className='h-full w-full object-contain' />
+            </div>
+          )}
+          <p className=' truncate text-xs text-gray-500'>{!file ? 'No file selected' : file.name}</p>
+        </div>
 
         <div className='mt-auto flex flex-wrap gap-3'>
           <CustomButton type='outline' title='Logo' handleClick={() => readFile('logo')} customStyles='text-xs' />

@@ -29,7 +29,7 @@ export default function CustomButton({ type, title, handleClick, customStyles }:
 
   return (
     <button
-      className={`flex-1 rounded-md px-2 py-1.5 ${customStyles}`}
+      className={`flex-1 rounded-md px-2 py-1.5 hover:brightness-90 ${customStyles}`}
       style={generateStyle(type) as CSSProperties}
       onClick={handleClick}
     >
